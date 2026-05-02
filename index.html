@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tee Trolley Cookies & Treats</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;700&family=Pacifico&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="hero">
+      <div class="hero__badge">Home Based Bakery</div>
+      <h1>Tee Trolley Cookies & Treats</h1>
+      <p>Freshly baked cookies, cupcakes, and sweet treats made with love.</p>
+      <div class="contact-row">
+        <a href="mailto:Mteetrolley@gmail.com">Mteetrolley@gmail.com</a>
+        <a href="tel:+17097285215">(709) 728-5215</a>
+      </div>
+    </header>
+
+    <main>
+      <section class="section" id="products">
+        <div class="section__header">
+          <h2>Available This Week</h2>
+          <p>Updated regularly based on current baking schedule.</p>
+        </div>
+        <div id="productGrid" class="product-grid"></div>
+      </section>
+
+      <section class="section section--admin">
+        <details>
+          <summary>Admin Controls</summary>
+          <p class="admin-note">
+            Add, update, and remove products without touching code.
+          </p>
+          <form id="productForm" class="admin-form">
+            <label>
+              Product Name
+              <input type="text" id="name" required placeholder="e.g. Mini Egg Cookies" />
+            </label>
+            <label>
+              Price
+              <input type="text" id="price" required placeholder="e.g. $18 / dozen" />
+            </label>
+            <label>
+              Quantity Available
+              <input type="number" id="quantity" required min="0" placeholder="e.g. 6" />
+            </label>
+            <label>
+              Category
+              <select id="category">
+                <option>Cookies</option>
+                <option>Cupcakes</option>
+                <option>Treat Boxes</option>
+                <option>Seasonal</option>
+              </select>
+            </label>
+            <label>
+              Description
+              <textarea id="description" rows="3" placeholder="Short product description"></textarea>
+            </label>
+            <button type="submit" class="btn">Save Product</button>
+          </form>
+          <div class="admin-actions">
+            <button id="clearSoldOut" class="btn btn--outline">Remove Sold Out Items</button>
+            <button id="resetDemo" class="btn btn--outline">Reset Demo Products</button>
+          </div>
+        </details>
+      </section>
+    </main>
+
+    <footer>
+      <p>Custom orders welcome. Message on Facebook or call to place your order.</p>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
