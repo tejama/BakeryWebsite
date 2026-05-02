@@ -1,0 +1,80 @@
+:root {
+  --rose-50: #fff6fa;
+  --rose-100: #ffe7f0;
+  --rose-300: #efb3c9;
+  --rose-500: #d87ba0;
+  --caramel-400: #bb845f;
+  --caramel-600: #8a5a3f;
+  --ink: #3e2b22;
+  --white: #fff;
+  --radius: 20px;
+  --shadow: 0 20px 40px rgba(109, 66, 45, 0.14);
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: "DM Sans", sans-serif;
+  color: var(--ink);
+  background: linear-gradient(145deg, #fff, var(--rose-50) 45%, #fff);
+  min-height: 100vh;
+}
+.shell { width: min(1120px, 92%); margin: 0 auto; }
+.bg-orb { position: fixed; border-radius: 999px; filter: blur(60px); z-index: -1; }
+.bg-orb--1 { width: 260px; height: 260px; background: #ffd0e0; top: -40px; left: -30px; }
+.bg-orb--2 { width: 300px; height: 300px; background: #f9ddca; bottom: 20px; right: -50px; }
+
+.topbar { display: flex; justify-content: space-between; align-items: center; padding: 1.25rem 0; }
+.brand-mini { font-family: "Fraunces", serif; font-size: 1.25rem; color: var(--caramel-600); }
+
+.hero__content { display: grid; grid-template-columns: 1.25fr 0.75fr; gap: 2rem; align-items: center; padding: 2rem 0 3rem; }
+.eyebrow { letter-spacing: .12em; text-transform: uppercase; font-size: .74rem; color: var(--rose-500); font-weight: 700; }
+h1 { font-family: "Fraunces", serif; font-size: clamp(2rem, 5vw, 3.75rem); line-height: 1.05; margin: .35rem 0 1rem; }
+.lede { font-size: 1.1rem; max-width: 62ch; color: #5b4032; }
+
+.hero__actions { display: flex; gap: .75rem; margin-top: 1.2rem; flex-wrap: wrap; }
+.btn {
+  border: 0; border-radius: 999px; padding: .8rem 1.25rem; text-decoration: none;
+  background: linear-gradient(140deg, var(--caramel-400), var(--caramel-600)); color: #fff; font-weight: 700; cursor: pointer;
+  box-shadow: 0 10px 24px rgba(138, 90, 63, .25);
+}
+.btn--ghost { background: transparent; color: var(--caramel-600); border: 1.5px solid #d8b09a; box-shadow: none; }
+.btn--small { padding: .55rem .95rem; font-size: .9rem; }
+
+.contact-pills { margin-top: 1rem; display: flex; gap: .6rem; flex-wrap: wrap; }
+.contact-pills a { text-decoration: none; color: var(--caramel-600); border: 1px solid #e7c5d4; background: #fff; border-radius: 999px; padding: .45rem .8rem; }
+
+.hero__logo-card {
+  background: rgba(255, 255, 255, 0.8); border: 1px solid #f1cedd; border-radius: var(--radius);
+  padding: 1rem; box-shadow: var(--shadow); backdrop-filter: blur(10px); text-align: center;
+}
+.hero__logo-card img { width: 100%; max-width: 290px; aspect-ratio: 1/1; object-fit: contain; border-radius: 16px; background: #fff; }
+
+.panel {
+  background: #ffffffd9; border: 1px solid #f0d2df; border-radius: var(--radius);
+  box-shadow: var(--shadow); padding: 1.3rem; margin-bottom: 1.25rem;
+}
+.panel__head { display: flex; justify-content: space-between; align-items: end; gap: 1rem; margin-bottom: 1rem; }
+.panel__head h2 { margin: .2rem 0 0; font-family: "Fraunces", serif; font-size: 1.8rem; }
+.chip { background: var(--rose-100); border: 1px solid var(--rose-300); padding: .45rem .7rem; border-radius: 999px; font-weight: 700; }
+
+.product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(235px, 1fr)); gap: 1rem; }
+.card { background: #fff; border: 1px solid #f3dce5; border-radius: 16px; padding: 1rem; }
+.card__top { display: flex; justify-content: space-between; align-items: start; gap: .5rem; }
+.card__category { font-size: .74rem; background: var(--rose-100); color: #965571; border-radius: 999px; padding: .2rem .5rem; font-weight: 700; }
+.card h3 { margin: .5rem 0 .4rem; font-family: "Fraunces", serif; }
+.stock { margin-top: .8rem; font-weight: 700; color: var(--caramel-600); }
+
+.admin-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .85rem; }
+label { display: grid; gap: .35rem; font-weight: 600; }
+input, select, textarea { padding: .65rem .75rem; border-radius: 12px; border: 1px solid #dfc5b5; font: inherit; }
+.span-2 { grid-column: span 2; }
+.admin-actions { display: flex; gap: .75rem; margin-top: .9rem; flex-wrap: wrap; }
+.footer { padding: 1rem 0 2.2rem; text-align: center; color: #775342; }
+
+@media (max-width: 900px) {
+  .hero__content { grid-template-columns: 1fr; }
+}
+@media (max-width: 640px) {
+  .admin-grid { grid-template-columns: 1fr; }
+  .span-2 { grid-column: span 1; }
+}

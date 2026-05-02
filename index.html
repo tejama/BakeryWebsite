@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tee Trolley Cookies & Treats</title>
+    <meta
+      name="description"
+      content="Boutique home bakery website with real-time inventory and easy admin controls."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Fraunces:opsz,wght@9..144,500;9..144,700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="bg-orb bg-orb--1"></div>
+    <div class="bg-orb bg-orb--2"></div>
+
+    <header class="hero shell">
+      <nav class="topbar">
+        <div class="brand-mini">Tee Trolley</div>
+        <a class="btn btn--small" href="#admin">Admin</a>
+      </nav>
+
+      <div class="hero__content">
+        <div class="hero__copy">
+          <p class="eyebrow">Handcrafted Home Bakery</p>
+          <h1>Cookies & Treats that look as beautiful as they taste.</h1>
+          <p class="lede">
+            Weekly rotating flavors, custom treat boxes, and baked-fresh favorites. Inventory is updated live.
+          </p>
+          <div class="hero__actions">
+            <a class="btn" href="#menu">Shop Current Menu</a>
+            <a class="btn btn--ghost" href="mailto:Mteetrolley@gmail.com">Message Bakery</a>
+          </div>
+          <div class="contact-pills">
+            <a href="mailto:Mteetrolley@gmail.com">Mteetrolley@gmail.com</a>
+            <a href="tel:+17097285215">(709) 728-5215</a>
+          </div>
+        </div>
+
+        <div class="hero__logo-card">
+          <img src="logo.png" alt="Tee Trolley Cookies & Treats logo" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 320 320'><rect width='320' height='320' rx='28' fill='%23fff6fa'/><circle cx='160' cy='160' r='120' fill='%23fff' stroke='%23bb845f' stroke-width='8'/><text x='160' y='145' text-anchor='middle' font-family='Arial' font-size='26' fill='%238a5a3f'>Tee Trolley</text><text x='160' y='178' text-anchor='middle' font-family='Arial' font-size='20' fill='%23d87ba0'>Cookies %26 Treats</text></svg>'" />
+          <p>Family-owned • Fresh batches • Pickup friendly</p>
+        </div>
+      </div>
+    </header>
+
+    <main class="shell">
+      <section id="menu" class="panel">
+        <div class="panel__head">
+          <div>
+            <p class="eyebrow">Now Baking</p>
+            <h2>Current Menu</h2>
+          </div>
+          <span class="chip" id="inventoryCount"></span>
+        </div>
+        <div id="productGrid" class="product-grid"></div>
+      </section>
+
+      <section id="admin" class="panel panel--admin">
+        <div class="panel__head">
+          <div>
+            <p class="eyebrow">Back Office</p>
+            <h2>Inventory Manager</h2>
+          </div>
+        </div>
+
+        <form id="productForm" class="admin-grid">
+          <label>Product Name<input id="name" required /></label>
+          <label>Category
+            <select id="category">
+              <option>Cookies</option><option>Cupcakes</option><option>Bars</option><option>Boxes</option><option>Seasonal</option>
+            </select>
+          </label>
+          <label>Price<input id="price" required placeholder="$18 / dozen" /></label>
+          <label>Quantity<input id="quantity" type="number" min="0" required /></label>
+          <label class="span-2">Description<textarea id="description" rows="3"></textarea></label>
+          <button class="btn span-2" type="submit">Save / Update Product</button>
+        </form>
+
+        <div class="admin-actions">
+          <button id="clearSoldOut" class="btn btn--ghost" type="button">Remove Sold Out</button>
+          <button id="resetDemo" class="btn btn--ghost" type="button">Reset Sample Menu</button>
+        </div>
+      </section>
+    </main>
+
+    <footer class="shell footer">
+      <p>© <span id="year"></span> Tee Trolley Cookies & Treats</p>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
