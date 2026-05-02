@@ -1,112 +1,72 @@
-const STORAGE_KEY = "tee_trolley_products";
-
+const STORAGE_KEY = "tee_trolley_products_v2";
 const demoProducts = [
-  {
-    id: crypto.randomUUID(),
-    name: "Chocolate Chip Cookies",
-    price: "$18 / dozen",
-    quantity: 8,
-    category: "Cookies",
-    description: "Classic soft cookies with gooey chocolate chips."
-  },
-  {
-    id: crypto.randomUUID(),
-    name: "Red Velvet Cupcakes",
-    price: "$24 / 6 pack",
-    quantity: 4,
-    category: "Cupcakes",
-    description: "Cream cheese frosting and sprinkle finish."
-  },
-  {
-    id: crypto.randomUUID(),
-    name: "Mini Treat Box",
-    price: "$30 each",
-    quantity: 2,
-    category: "Treat Boxes",
-    description: "Mix of cookies, bars, and cupcake minis."
-  }
+  { id: crypto.randomUUID(), name: "Brown Butter Sea Salt Cookies", category: "Cookies", price: "$20 / dozen", quantity: 7, description: "Rich caramel notes, crisp edge, chewy center." },
+  { id: crypto.randomUUID(), name: "Strawberry Shortcake Cupcakes", category: "Cupcakes", price: "$28 / 6 pack", quantity: 4, description: "Vanilla sponge, whipped frosting, strawberry compote." },
+  { id: crypto.randomUUID(), name: "Spring Party Treat Box", category: "Boxes", price: "$36 each", quantity: 3, description: "Assorted bars, minis, and signature cookies." }
 ];
 
-const grid = document.querySelector("#productGrid");
-const form = document.querySelector("#productForm");
-const clearSoldOutBtn = document.querySelector("#clearSoldOut");
-const resetDemoBtn = document.querySelector("#resetDemo");
+const grid = document.getElementById("productGrid");
+const count = document.getElementById("inventoryCount");
+const form = document.getElementById("productForm");
+const clearSoldOut = document.getElementById("clearSoldOut");
+const resetDemo = document.getElementById("resetDemo");
+document.getElementById("year").textContent = new Date().getFullYear();
 
-function loadProducts() {
-  const raw = localStorage.getItem(STORAGE_KEY);
-  if (!raw) return [...demoProducts];
-
+const read = () => {
   try {
-    const parsed = JSON.parse(raw);
+    const parsed = JSON.parse(localStorage.getItem(STORAGE_KEY) || "null");
     return Array.isArray(parsed) ? parsed : [...demoProducts];
   } catch {
     return [...demoProducts];
   }
+};
+const write = (products) => localStorage.setItem(STORAGE_KEY, JSON.stringify(products));
+const stockStatus = (q) => (q <= 0 ? "Sold Out" : q <= 3 ? `Only ${q} left` : `${q} available`);
+
+let products = read();
+
+function render() {
+  count.textContent = `${products.filter((p) => p.quantity > 0).length} products in stock`;
+  grid.innerHTML = products.length
+    ? products
+        .map(
+          (p) => `<article class="card">
+              <div class="card__top"><span class="card__category">${p.category}</span><strong>${p.price}</strong></div>
+              <h3>${p.name}</h3>
+              <p>${p.description || "Freshly baked."}</p>
+              <div class="stock">${stockStatus(Number(p.quantity))}</div>
+          </article>`
+        )
+        .join("")
+    : "<p>No menu items yet. Add one below.</p>";
 }
 
-function saveProducts(products) {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(products));
-}
-
-function stockLabel(quantity) {
-  if (quantity <= 0) return "Sold out";
-  if (quantity <= 2) return `Only ${quantity} left`;
-  return `${quantity} available`;
-}
-
-function render(products) {
-  if (products.length === 0) {
-    grid.innerHTML = '<p>No products listed yet. Add one in Admin Controls.</p>';
-    return;
-  }
-
-  grid.innerHTML = products
-    .map(
-      (item) => `
-      <article class="card">
-        <span class="card__category">${item.category}</span>
-        <h3>${item.name}</h3>
-        <p>${item.description || "Fresh baked item."}</p>
-        <div class="meta">
-          <span>${item.price}</span>
-          <span>${item.quantity}</span>
-        </div>
-        <div class="stock">${stockLabel(Number(item.quantity))}</div>
-      </article>
-    `
-    )
-    .join("");
-}
-
-let products = loadProducts();
-render(products);
-
-form.addEventListener("submit", (event) => {
-  event.preventDefault();
-
-  const newProduct = {
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const entry = {
     id: crypto.randomUUID(),
     name: form.name.value.trim(),
+    category: form.category.value,
     price: form.price.value.trim(),
     quantity: Number(form.quantity.value),
-    category: form.category.value,
     description: form.description.value.trim()
   };
-
-  products = [newProduct, ...products.filter((item) => item.name !== newProduct.name)];
-  saveProducts(products);
-  render(products);
+  products = [entry, ...products.filter((p) => p.name.toLowerCase() !== entry.name.toLowerCase())];
+  write(products);
+  render();
   form.reset();
 });
 
-clearSoldOutBtn.addEventListener("click", () => {
-  products = products.filter((item) => Number(item.quantity) > 0);
-  saveProducts(products);
-  render(products);
+clearSoldOut.addEventListener("click", () => {
+  products = products.filter((p) => p.quantity > 0);
+  write(products);
+  render();
 });
 
-resetDemoBtn.addEventListener("click", () => {
+resetDemo.addEventListener("click", () => {
   products = [...demoProducts];
-  saveProducts(products);
-  render(products);
+  write(products);
+  render();
 });
+
+render();
