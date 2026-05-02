@@ -1,8 +1,35 @@
-const STORAGE_KEY = "tee_trolley_products_v2";
+const STORAGE_KEY = "tee_trolley_products_v3";
 const demoProducts = [
-  { id: crypto.randomUUID(), name: "Brown Butter Sea Salt Cookies", category: "Cookies", price: "$20 / dozen", quantity: 7, description: "Rich caramel notes, crisp edge, chewy center." },
-  { id: crypto.randomUUID(), name: "Strawberry Shortcake Cupcakes", category: "Cupcakes", price: "$28 / 6 pack", quantity: 4, description: "Vanilla sponge, whipped frosting, strawberry compote." },
-  { id: crypto.randomUUID(), name: "Spring Party Treat Box", category: "Boxes", price: "$36 each", quantity: 3, description: "Assorted bars, minis, and signature cookies." }
+  {
+    id: crypto.randomUUID(),
+    name: "Brown Butter Sea Salt Cookies",
+    category: "Cookies",
+    price: "$20 / dozen",
+    quantity: 7,
+    description: "Rich caramel notes, crisp edge, chewy center.",
+    image:
+      "https://images.unsplash.com/photo-1499636136210-6f4ee915583e?auto=format&fit=crop&w=1000&q=80"
+  },
+  {
+    id: crypto.randomUUID(),
+    name: "Strawberry Shortcake Cupcakes",
+    category: "Cupcakes",
+    price: "$28 / 6 pack",
+    quantity: 4,
+    description: "Vanilla sponge, whipped frosting, strawberry compote.",
+    image:
+      "https://images.unsplash.com/photo-1486427944299-d1955d23e34d?auto=format&fit=crop&w=1000&q=80"
+  },
+  {
+    id: crypto.randomUUID(),
+    name: "Blueberry Crumble Muffins",
+    category: "Muffins",
+    price: "$16 / 6 pack",
+    quantity: 5,
+    description: "Moist blueberry muffins with cinnamon crumble tops.",
+    image:
+      "https://images.unsplash.com/photo-1607958996333-41aef7caefaa?auto=format&fit=crop&w=1000&q=80"
+  }
 ];
 
 const grid = document.getElementById("productGrid");
@@ -31,10 +58,13 @@ function render() {
     ? products
         .map(
           (p) => `<article class="card">
-              <div class="card__top"><span class="card__category">${p.category}</span><strong>${p.price}</strong></div>
-              <h3>${p.name}</h3>
-              <p>${p.description || "Freshly baked."}</p>
-              <div class="stock">${stockStatus(Number(p.quantity))}</div>
+              <img class="card__image" src="${p.image || "https://images.unsplash.com/photo-1558961363-fa8fdf82db35?auto=format&fit=crop&w=1000&q=80"}" alt="${p.name}" />
+              <div class="card__body">
+                <div class="card__top"><span class="card__category">${p.category}</span><strong>${p.price}</strong></div>
+                <h3>${p.name}</h3>
+                <p>${p.description || "Freshly baked."}</p>
+                <div class="stock">${stockStatus(Number(p.quantity))}</div>
+              </div>
           </article>`
         )
         .join("")
@@ -49,7 +79,8 @@ form.addEventListener("submit", (e) => {
     category: form.category.value,
     price: form.price.value.trim(),
     quantity: Number(form.quantity.value),
-    description: form.description.value.trim()
+    description: form.description.value.trim(),
+    image: form.image.value.trim()
   };
   products = [entry, ...products.filter((p) => p.name.toLowerCase() !== entry.name.toLowerCase())];
   write(products);
